@@ -2,7 +2,6 @@
 
 ## C.3.2.1. Birim (Unit) Testleri Tasarımı
 
-- LLM çıktı ayrıştırma, şema doğrulama ve görev planı üretim fonksiyonları birim seviyede test edilecektir.
 - UIA ayrıştırıcı modülünün boş ağaç, eksik özellik, derin hiyerarşi ve büyük hacimli UIA verisi altında doğru çalışması sınanacaktır.
 - Gözlem katmanında güven skoru üretimi, fallback tetikleme eşiği ve hedef nesne seçimi birim bazında doğrulanacaktır.
 - Eylem komutları için tıklama, yazma, pencere değiştirme ve kısayol yürütme mantığı ayrı ayrı test edilecektir.
@@ -22,7 +21,7 @@
 
 ## C.3.2.3. Sistem Testleri Tasarımı
 
-- Sistem testleri, tüm bileşenlerin birlikte çalıştığı uçtan uca görev senaryoları üzerinden yürütülecektir.
+- 
 - Kullanıcının görev girmesi, sistemin plan üretmesi, hedef arayüzü gözlemlemesi, doğru eylemi icra etmesi, sonucu doğrulaması ve çıktı üretmesi bir bütün olarak değerlendirilecektir.
 - Standart erişilebilirlik desteği sunan uygulamalar ile daha karmaşık veya legacy arayüzler üzerinde sistem davranışı gözlemlenecektir.
 - Beklenmeyen pencere, zaman aşımı, odak kaybı, yanlış ekran ve eksik UIA verisi gibi hata durumları sistem seviyesinde test edilecektir.
@@ -30,7 +29,7 @@
 
 ## C.3.2.4. Kabul Testleri Tasarımı
 
-- Kabul testleri, sistemin kullanıcı beklentilerini ve proje gereksinimlerini sağlayıp sağlamadığını doğrulamak amacıyla hazırlanacaktır.
+
 - Kullanıcının masaüstü arayüzünden görev oluşturabilmesi, görev ilerlemesini izleyebilmesi ve sonuç özetine erişebilmesi kabul kriterleri arasında yer alacaktır.
 - Ajanın doğru hedefe tıklaması, yanlış eylemleri engellemesi ve kritik işlemler öncesinde açık onay istemesi temel kabul kriteri olacaktır.
 - Hata durumlarında sistemin güvenli biçimde toparlanması veya anlamlı hata mesajı ile sonlanması beklenecektir.
@@ -38,14 +37,12 @@
 
 ## C.3.2.5. Kapalı Kutu (Black-box) Testleri Tasarımı
 
-- Kapalı kutu testlerinde sistem iç yapısı dikkate alınmadan yalnızca giriş-çıkış davranışları incelenecektir.
 - Boş görev girdisi, belirsiz görev, çok uzun görev açıklaması, çelişkili komut ve eksik kullanıcı onayı gibi durumlarda sistem tepkisi gözlemlenecektir.
 - UIA ile erişilebilen, kısmen erişilebilen ve erişilemeyen arayüzler üzerinde sistemin dış davranışı değerlendirilecektir.
 - Beklenen çıktı ile fiilî çıktı karşılaştırılarak görev tamamlama başarısı, hata üretme biçimi ve kullanıcıya sunulan geri bildirim incelenecektir.
 
 ## C.3.2.6. Açık Kutu (White-box) Testleri Tasarımı
 
-- Açık kutu testlerinde sistemin iç kontrol akışı ve karar dalları esas alınacaktır.
 - Durum makinesindeki Observe, Plan, Act, Verify, Recover, Complete ve Fail geçişleri dal kapsamı açısından test edilecektir.
 - Retry, timeout, fallback, approval, reject ve safe-stop gibi dallanma noktalarının her biri doğrulanacaktır.
 - Hata sınıflandırma mantığı, güvenlik kontrol akışı, log maskeleme dalları ve bellek pruning koşulları iç yapıya göre sınanacaktır.
