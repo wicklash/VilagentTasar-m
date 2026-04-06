@@ -1,0 +1,18 @@
+- Kullanıcı arayüzü ve oturum yönetimi kapsamında, kullanıcının Electron arayüzü üzerinden görev oluşturması, görev ayrıntılarını görüntülemesi, oturumu başlatması, çalışma sürecini izlemesi, onay vermesi, görevi durdurması ve sonuç özetine erişmesi değerlendirilecektir.
+- React arayüzünde durum güncellemelerinin doğru yansıtılması, bileşenlerin senkron çalışması ve hata mesajlarının kullanıcıya anlaşılır biçimde sunulması sınanacaktır.
+- Görev alımı, niyet çözümleme ve planlama kapsamında, serbest metin görevlerin doğru yorumlanması, belirsiz taleplerde netleştirme üretilmesi, görevin alt görevlere bölünmesi ve atomik adımlara ayrıştırılması doğrulanacaktır.
+- LLM'in verdiği yanıtların tanımlı şemalara uyumu, görev bağlamını doğru kullanması ve gereksiz ya da eksik adım üretmemesi özel olarak incelenecektir.
+- Gözlem katmanı kapsamında, UIA erişilebilirlik ağacının doğru çözümlemesi, hedef arayüz öğelerinin doğru sınıflandırılması, öğe özelliklerinin doğru okunması ve güven skorunun tutarlı biçimde üretilmesi test edilecektir.
+- UIA'nin yetersiz kaldığı veya hedef öğenin erişilebilirlik ağacında güvenilir biçimde bulunamadığı senaryolarda, VLM tabanlı fallback mekanizmasının devreye girerek ekranı yorumlaması ve alternatif hedef seçimi yapabilmesi değerlendirilecektir.
+- Eylem icrası kapsamında, ajan tarafından üretilen eylem planının hedef uygulama üzerinde doğru sırada ve doğru hedefte icra edilip edilmediği gözlemlenecektir.
+- Özellikle doğru butona tıklama, doğru alana metin yazma, doğru pencereyi odaklama, uygun kısayolu kullanma ve yanlış hedefe işlem yapmama ölçütleri test edilecektir.
+- Kritik eylemlerde telafi edici işlem politikalarının çalışması ve geri alınabilir eylemlerde güvenli toparlanma sağlanması değerlendirilecektir.
+- Doğrulama ve hata toparlama kapsamında, her kritik adımdan sonra beklenen durum ile gerçekleşen durum karşılaştırılacaktır.
+- Sapma tespit edildiğinde sistemin otomatik olarak Recover akışına geçmesi, yeniden deneme yapması, alternatif strateji üretmesi veya güvenli biçimde geri dönmesi değerlendirilecektir.
+- Yanlış pencereye geçiş, bulunamayan öğe, zaman aşımı, yetki hatası ve odak kaybı gibi durumlar özel hata senaryoları olarak ele alınacaktır.
+- İnsan-onay döngüsü ve güvenlik kapsamında, kullanıcı onayı gerektiren işlemler öncesinde arayüzün açık uyarı göstermesi, kullanıcı onayı verilmeden işlemin gerçekleşmemesi, hassas alanlarda çift onay kuralının uygulanması, yetkisiz eylemlerin engellenmesi ve gizli verilerin loglarda maskelenmesi doğrulanacaktır.
+- Kullanıcı tarafından görev iptal edildiğinde ajanın güvenli duruma dönmesi ve son kararlı durumu raporlayabilmesi de bu kapsamda test edilecektir.
+- Bellek, bağlam ve çıktı üretimi kapsamında, ajanın oturum bağlamını koruyabilmesi, önceki görev özetlerinden yararlanabilmesi, tekrar eden iş akışlarını kısmen veya tamamen yeniden kullanabilmesi, gereksiz geçmiş bağlamı özetleyebilmesi ve sonuçta kullanıcıya anlamlı özet ile makinece işlenebilir çıktı sunabilmesi değerlendirilecektir.
+- Log, metrik ve yürütüm izi kayıtlarının denetim amacıyla yeterli bilgi içermesi de sınanacaktır.
+- Fonksiyonel testler kontrollü Windows ortamlarında, farklı erişilebilirlik seviyelerine sahip masaüstü uygulamalar üzerinde yürütülecektir.
+
