@@ -7,7 +7,3 @@ Deep Agents sisteminin işleyişi, ana bir "orkestratör" ajanın karmaşık kul
 
 
 
-furkan
-Önerilen sistem mimarisi, karmaşık kullanıcı taleplerini yönetmek ve operasyonel hataları minimize etmek amacıyla Deep Agent (Yönetici) ve Subagent (Uzman İşçi) yapısı üzerine kurgulanmıştır. Bu yapıda Deep Agent, sistemin stratejik karar mekanizması olarak görev yapar; kullanıcıdan gelen doğal dil girdilerini analiz ederek üst düzey bir yürütme planı oluşturur ve sürecin genel durumunu (State) takip eder. Deep Agent, doğrudan karmaşık veri yığınlarıyla (örneğin binlerce satırlık UI Tree) etkileşime girmek yerine, bu görevleri belirli alanlarda uzmanlaşmış Subagent’lara delege eder.
-
-Subagent’lar, kendilerine atanan dar kapsamlı görevleri (ekran analizi, veri filtreleme veya fiziksel tıklama eylemleri gibi) kendi izole döngüleri içerisinde gerçekleştirir. Özellikle kullanıcı arayüzü otomasyonunda, Subagent ham arayüz hiyerarşisini (UI Tree) çekerek gürültülü veriyi temizler ve Deep Agent’a sadece karar vermesi için gerekli olan rafine edilmiş bilgiyi sunar. Bu hiyerarşik ayrım, ana modelin bağlam penceresini (Context Window) koruyarak odak dağılmasını engellerken, sistemin hata durumlarında (Self-healing) esnek kararlar almasına ve adımları dinamik olarak yeniden planlamasına olanak tanır. Neticede bu iş birliği, yüksek seviyeli muhakeme yeteneği ile düşük seviyeli operasyonel hassasiyeti tek bir otonom yapıda birleştirmektedir.
