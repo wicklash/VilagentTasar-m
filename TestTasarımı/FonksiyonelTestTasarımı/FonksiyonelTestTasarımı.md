@@ -1,18 +1,52 @@
-- Kullanıcı arayüzü ve oturum yönetimi kapsamında, kullanıcının Electron arayüzü üzerinden görev oluşturması, görev ayrıntılarını görüntülemesi, oturumu başlatması, çalışma sürecini izlemesi, onay vermesi, görevi durdurması ve sonuç özetine erişmesi değerlendirilecektir.
-- React arayüzünde durum güncellemelerinin doğru yansıtılması, bileşenlerin senkron çalışması ve hata mesajlarının kullanıcıya anlaşılır biçimde sunulması sınanacaktır.
-- Görev alımı, niyet çözümleme ve planlama kapsamında, serbest metin görevlerin doğru yorumlanması, belirsiz taleplerde netleştirme üretilmesi, görevin alt görevlere bölünmesi ve atomik adımlara ayrıştırılması doğrulanacaktır.
-- LLM'in verdiği yanıtların tanımlı şemalara uyumu, görev bağlamını doğru kullanması ve gereksiz ya da eksik adım üretmemesi özel olarak incelenecektir.
-- Gözlem katmanı kapsamında, UIA erişilebilirlik ağacının doğru çözümlemesi, hedef arayüz öğelerinin doğru sınıflandırılması, öğe özelliklerinin doğru okunması ve güven skorunun tutarlı biçimde üretilmesi test edilecektir.
-- UIA'nin yetersiz kaldığı veya hedef öğenin erişilebilirlik ağacında güvenilir biçimde bulunamadığı senaryolarda, VLM tabanlı fallback mekanizmasının devreye girerek ekranı yorumlaması ve alternatif hedef seçimi yapabilmesi değerlendirilecektir.
-- Eylem icrası kapsamında, ajan tarafından üretilen eylem planının hedef uygulama üzerinde doğru sırada ve doğru hedefte icra edilip edilmediği gözlemlenecektir.
-- Özellikle doğru butona tıklama, doğru alana metin yazma, doğru pencereyi odaklama, uygun kısayolu kullanma ve yanlış hedefe işlem yapmama ölçütleri test edilecektir.
-- Kritik eylemlerde telafi edici işlem politikalarının çalışması ve geri alınabilir eylemlerde güvenli toparlanma sağlanması değerlendirilecektir.
-- Doğrulama ve hata toparlama kapsamında, her kritik adımdan sonra beklenen durum ile gerçekleşen durum karşılaştırılacaktır.
-- Sapma tespit edildiğinde sistemin otomatik olarak Recover akışına geçmesi, yeniden deneme yapması, alternatif strateji üretmesi veya güvenli biçimde geri dönmesi değerlendirilecektir.
-- Yanlış pencereye geçiş, bulunamayan öğe, zaman aşımı, yetki hatası ve odak kaybı gibi durumlar özel hata senaryoları olarak ele alınacaktır.
-- İnsan-onay döngüsü ve güvenlik kapsamında, kullanıcı onayı gerektiren işlemler öncesinde arayüzün açık uyarı göstermesi, kullanıcı onayı verilmeden işlemin gerçekleşmemesi, hassas alanlarda çift onay kuralının uygulanması, yetkisiz eylemlerin engellenmesi ve gizli verilerin loglarda maskelenmesi doğrulanacaktır.
-- Kullanıcı tarafından görev iptal edildiğinde ajanın güvenli duruma dönmesi ve son kararlı durumu raporlayabilmesi de bu kapsamda test edilecektir.
-- Bellek, bağlam ve çıktı üretimi kapsamında, ajanın oturum bağlamını koruyabilmesi, önceki görev özetlerinden yararlanabilmesi, tekrar eden iş akışlarını kısmen veya tamamen yeniden kullanabilmesi, gereksiz geçmiş bağlamı özetleyebilmesi ve sonuçta kullanıcıya anlamlı özet ile makinece işlenebilir çıktı sunabilmesi değerlendirilecektir.
-- Log, metrik ve yürütüm izi kayıtlarının denetim amacıyla yeterli bilgi içermesi de sınanacaktır.
-- Fonksiyonel testler kontrollü Windows ortamlarında, farklı erişilebilirlik seviyelerine sahip masaüstü uygulamalar üzerinde yürütülecektir.
+# C.3.2. Fonksiyonel Test Tasarımı
 
+## C.3.2.1. Birim (Unit) Testleri Tasarımı
+
+- LLM çıktı ayrıştırma, şema doğrulama ve görev planı üretim fonksiyonları birim seviyede test edilecektir.
+- UIA ayrıştırıcı modülünün boş ağaç, eksik özellik, derin hiyerarşi ve büyük hacimli UIA verisi altında doğru çalışması sınanacaktır.
+- Gözlem katmanında güven skoru üretimi, fallback tetikleme eşiği ve hedef nesne seçimi birim bazında doğrulanacaktır.
+- Eylem komutları için tıklama, yazma, pencere değiştirme ve kısayol yürütme mantığı ayrı ayrı test edilecektir.
+- Verify ve Recover modüllerinin karar kuralları, hata sınıflandırması ve yeniden deneme mantığı birim düzeyde sınanacaktır.
+- Bellek yönetimi, özetleme, pruning, log maskeleme ve güvenlik kontrolü işlevleri için birim testleri oluşturulacaktır.
+- Boş girdi, belirsiz komut, çok uzun görev açıklaması, büyük log kaydı ve yüksek hacimli gözlem verisi gibi sınır durumları ayrıca test edilecektir.
+
+## C.3.2.2. Entegrasyon Testleri Tasarımı
+
+- Electron ana süreç ile React arayüzü arasındaki haberleşme yapısı test edilecektir.
+- Kullanıcı arayüzü ile ajan çekirdeği arasındaki görev başlatma, durum güncelleme, onay alma ve sonuç aktarma akışları doğrulanacaktır.
+- DeepAgent ile planlama, gözlem, eylem, doğrulama ve toparlama bileşenleri arasındaki veri akışı sınanacaktır.
+- LLM sağlayıcısı, prompt orkestrasyonu ve şema tabanlı çıktı işleme katmanlarının birlikte doğru çalışması test edilecektir.
+- UIA gözlemi ile VLM fallback mekanizmasının aynı akış içinde doğru şekilde devreye girmesi doğrulanacaktır.
+- Eylem icrası sonrası doğrulama ve gerekirse hata toparlama zincirinin uçtan uca entegrasyonu test edilecektir.
+- Bellek, loglama, güvenlik politikası ve telemetri bileşenlerinin ajan yürütümü ile tutarlı çalışması değerlendirilecektir.
+
+## C.3.2.3. Sistem Testleri Tasarımı
+
+- Sistem testleri, tüm bileşenlerin birlikte çalıştığı uçtan uca görev senaryoları üzerinden yürütülecektir.
+- Kullanıcının görev girmesi, sistemin plan üretmesi, hedef arayüzü gözlemlemesi, doğru eylemi icra etmesi, sonucu doğrulaması ve çıktı üretmesi bir bütün olarak değerlendirilecektir.
+- Standart erişilebilirlik desteği sunan uygulamalar ile daha karmaşık veya legacy arayüzler üzerinde sistem davranışı gözlemlenecektir.
+- Beklenmeyen pencere, zaman aşımı, odak kaybı, yanlış ekran ve eksik UIA verisi gibi hata durumları sistem seviyesinde test edilecektir.
+- Uzun görev zincirleri, tekrar eden iş akışları ve kullanıcı onayı gerektiren senaryolar da sistem testlerine dahil edilecektir.
+
+## C.3.2.4. Kabul Testleri Tasarımı
+
+- Kabul testleri, sistemin kullanıcı beklentilerini ve proje gereksinimlerini sağlayıp sağlamadığını doğrulamak amacıyla hazırlanacaktır.
+- Kullanıcının masaüstü arayüzünden görev oluşturabilmesi, görev ilerlemesini izleyebilmesi ve sonuç özetine erişebilmesi kabul kriterleri arasında yer alacaktır.
+- Ajanın doğru hedefe tıklaması, yanlış eylemleri engellemesi ve kritik işlemler öncesinde açık onay istemesi temel kabul kriteri olacaktır.
+- Hata durumlarında sistemin güvenli biçimde toparlanması veya anlamlı hata mesajı ile sonlanması beklenecektir.
+- Sonuçların insan tarafından okunabilir ve gerektiğinde makine tarafından işlenebilir biçimde sunulması kabul testlerinde doğrulanacaktır.
+
+## C.3.2.5. Kapalı Kutu (Black-box) Testleri Tasarımı
+
+- Kapalı kutu testlerinde sistem iç yapısı dikkate alınmadan yalnızca giriş-çıkış davranışları incelenecektir.
+- Boş görev girdisi, belirsiz görev, çok uzun görev açıklaması, çelişkili komut ve eksik kullanıcı onayı gibi durumlarda sistem tepkisi gözlemlenecektir.
+- UIA ile erişilebilen, kısmen erişilebilen ve erişilemeyen arayüzler üzerinde sistemin dış davranışı değerlendirilecektir.
+- Beklenen çıktı ile fiilî çıktı karşılaştırılarak görev tamamlama başarısı, hata üretme biçimi ve kullanıcıya sunulan geri bildirim incelenecektir.
+
+## C.3.2.6. Açık Kutu (White-box) Testleri Tasarımı
+
+- Açık kutu testlerinde sistemin iç kontrol akışı ve karar dalları esas alınacaktır.
+- Durum makinesindeki Observe, Plan, Act, Verify, Recover, Complete ve Fail geçişleri dal kapsamı açısından test edilecektir.
+- Retry, timeout, fallback, approval, reject ve safe-stop gibi dallanma noktalarının her biri doğrulanacaktır.
+- Hata sınıflandırma mantığı, güvenlik kontrol akışı, log maskeleme dalları ve bellek pruning koşulları iç yapıya göre sınanacaktır.
+- Kritik modüllerde satır, karar ve istisna akışı kapsamı artırılarak yazılım kalitesi desteklenecektir.
