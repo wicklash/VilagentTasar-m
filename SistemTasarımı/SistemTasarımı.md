@@ -4,7 +4,7 @@ Kullanıcı, serbest metin formatında bir istek iletir. Sistem, NLP yetenekleri
 2. Hibrit Ekran Algılama (Hybrid Perception)
 Sistem, o andaki ekran durumunu iki farklı kanaldan analiz eder:
 
-VLM (Vision): Ekranın görsel mizanpajını ve UI elemanlarının birbirine göre konumunu anlar.
+VLM (Vision): Ekranın görsel düzenini ve UI elemanlarının birbirine göre konumunu anlar.
 
 Windows UIA (Technical): Uygulama ağacındaki buton, metin kutusu ve pencere kimliklerini (AutomationID) teknik olarak yakalar.
 
