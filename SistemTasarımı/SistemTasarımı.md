@@ -28,14 +28,11 @@ Sistem Ajanı: Ayarlar ve pencere yönetimi.
 6. Aksiyon Yürütme (MCP Tool Execution)
 Atanan alt-ajan, Model Context Protocol (MCP) üzerinden tanımlanmış araçları (Tools) tetikler. Bu aşamada simüle edilmiş fare tıklamaları, klavye girdileri veya doğrudan Windows API çağrıları gerçekleştirilir.
 
-7. Dinamik Adım Kaydı (Step Recording & Optimization)
-psr.exe (Windows Steps Recorder) mantığıyla, sadece aksiyonun gerçekleştiği ekran bölgeleri takip edilir. Bu sayede her adımda tam ekran analizi yapılmayarak sistem kaynakları (CPU/GPU) ve VLM jeton (token) maliyeti korunur.
-
-8. Öz-Yansıma ve Hata Onarımı (Self-Correction)
+7. Öz-Yansıma ve Hata Onarımı (Self-Correction)
 Her aksiyon sonrası ekran durumu tekrar analiz edilir. Eğer yapılan işlem beklenen sonucu vermediyse (örn: pencere açılmadıysa), ajan hatayı fark eder ve alternatif bir strateji geliştirerek süreci tekrar dener (Robustness).
 
-9. Nihai Doğrulama (Final Task Validation)
+8. Nihai Doğrulama (Final Task Validation)
 Tüm alt adımlar tamamlandığında, planlayıcı son ekran görüntüsünü ve sistem çıktılarını kontrol ederek kullanıcı isteğinin %100 karşılanıp karşılanmadığını teyit eder.
 
-10. Öğrenme ve Arşivleme (Learning & Archiving)
+9. Öğrenme ve Arşivleme (Learning & Archiving)
 Başarıyla tamamlanan görev akışı, gelecekteki taleplerde hız kazandırmak amacıyla "başarılı bir deneyim" olarak vektör veri tabanına kaydedilir ve kullanıcıya sonuç raporu sunulur.
