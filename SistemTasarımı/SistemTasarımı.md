@@ -39,38 +39,8 @@ Başarıyla tamamlanan görev akışı, gelecekteki taleplerde hız kazandırmak
 
 ---
 
-## Sistem Tasarımı Özeti
+VILAGENT projesinin sistem tasarımı, karmaşık kullanıcı taleplerini işletim sistemi seviyesinde anlamlı eylemlere dönüştürebilen, modüler ve hibrit bir mimari üzerine inşa edilmiştir. Süreç, kullanıcının doğal dil formundaki isteğinin derinlemesine analiz edilerek niyet (*intent*) ve parametrelerin ayıklandığı **görev alımı** aşamasıyla başlar. Sistemin algılama katmanı, ekranın piksel bazlı görsel düzenini semantik olarak yorumlayan **Vision Language Model (VLM)** ile uygulamaların erişilebilirlik ağacındaki teknik kimlikleri — buton etiketleri, AutomationID'ler, pencere hiyerarşileri — yakalayan **Windows UI Automation (UIA)** bileşenlerinin füzyonuna dayanır. Bu iki kanalın ürettiği zengin bağlamsal veri, merkezi planlayıcı olan **DeepAgent**'a iletilir; DeepAgent, gelen karmaşık talebi yönetilebilir atomik alt görevlere parçalar ve her bir alt görev için en uygun stratejiyi belirler. Planlama aşamasında sistem, **uzun süreli bellek (Long-Term Memory)** modülü aracılığıyla vektör veri tabanında semantik benzerlik araması gerçekleştirerek geçmişteki başarılı görev akışlarını sorgular; eşleşen deneyimler bulunduğunda mevcut planı bu örüntülerle optimize eder ve tekrarlayan senaryolarda önemli ölçüde hız ile doğruluk kazanır.
 
-VILAGENT projesinin sistem tasarımı, karmaşık kullanıcı taleplerini **işletim sistemi seviyesinde** anlamlı eylemlere dönüştüren, **modüler ve hibrit** bir mimari üzerine kurulmuştur.
+Sistemin tüm karar mekanizması ve akış yönetimi, **LangGraph** framework'ü kullanılarak döngüsel (*cyclic*) bir çizge yapısı şeklinde modellenmiştir. Geleneksel sıralı (*sequential*) pipeline'lardan farklı olarak LangGraph, ajanın her adımda mevcut durumu yeniden değerlendirmesine olanak tanıyan **dinamik bir durum makinesi (state machine)** gibi çalışır: her düğüm (*node*) bir işlemi — algılama, planlama, yürütme veya doğrulama — temsil ederken, düğümler arasındaki kenarlar (*edges*) koşullu geçiş mantıklarıyla yönetilir. Böylece ajan, bir adımda başarısızlık algıladığında çizge üzerinde geriye dönerek alternatif bir rotayı izleyebilir ya da yeni bir planlama döngüsüne girebilir. LangGraph'ın sağladığı bu esneklik sayesinde statik iş akışlarına hapsolmak yerine, ortam değişikliklerine anlık tepki verebilen reaktif ve uyarlanabilir bir orkestrasyon elde edilir. Hazırlanan plan doğrultusunda alt görevler — dosya işlemleri, uygulama etkileşimleri, sistem yapılandırmaları — ilgili alanda uzmanlaşmış **SubAgent**'lara devredilir ve bu ajanlar, **Model Context Protocol (MCP)** üzerinden tanımlanmış araç setini tetikleyerek simüle edilmiş fare/klavye girdileri veya doğrudan Windows API çağrıları aracılığıyla aksiyonu fiziksel düzlemde yürütür.
 
-### Görev Alımı ve Algılama
-
-- Süreç, kullanıcının **doğal dil** formundaki isteğinin analiz edilerek **niyet (intent)** ve **parametrelerin** ayıklandığı görev alımı aşamasıyla başlar.
-- Sistemin algılama kapasitesi iki temel bileşenin birleştiği **hibrit bir yapıya** sahiptir:
-  - **Vision Language Model (VLM)** — Ekranın görsel düzenini anlamlandırır.
-  - **Windows UI Automation (UIA)** — Uygulama ağacındaki teknik kimlikleri yakalar.
-
-### Planlama ve Bellek
-
-- Elde edilen veriler ışığında merkezi planlayıcı olan **DeepAgent**, karmaşık görevleri yönetilebilir **atomik alt görevlere** parçalar.
-- Planlama sırasında sistem, **Long-Term Memory** üzerinden vektör veri tabanında benzerlik araması yaparak geçmişteki başarılı deneyimleri sorgular ve mevcut planı **optimize** ederek tekrarlayan işlerde hız kazanır.
-
-### Karar Mekanizması ve Akış Yönetimi
-
-- Sistemin karar mekanizması, **LangGraph** framework'ü kullanılarak **döngüsel bir graf yapısı** şeklinde tasarlanmıştır.
-- LangGraph sayesinde ajan, statik bir iş akışına bağlı kalmak yerine her adımda durumu yeniden değerlendirebilen **dinamik bir durum makinesi (state machine)** gibi çalışır.
-- Hazırlanan plan doğrultusunda alt görevler, ilgili **SubAgent**'lara devredilir:
-  - **Dosya Ajanı** — Dosya ve Explorer işlemleri
-  - **Uygulama Ajanı** — Office, tarayıcı vb. etkileşimler
-  - **Sistem Ajanı** — Ayarlar ve pencere yönetimi
-- Bu ajanlar, **Model Context Protocol (MCP)** üzerinden tanımlanmış araçları tetikleyerek *fare/klavye girdileri* veya *doğrudan Windows API çağrıları* ile aksiyonu yürütür.
-
-### Öz-Yansıma ve Hata Onarımı
-
-- Operasyonel sağlamlığı *(robustness)* artırmak için sistem, her işlem sonrası **öz-yansıma (self-reflection)** mekanizmasını çalıştırır.
-- Eğer yapılan işlem beklenen sonucu vermediyse (örneğin bir pencere açılmadıysa), ajan LangGraph üzerindeki döngüsel yapıyı kullanarak hatayı fark eder ve **alternatif bir strateji** geliştirerek süreci tekrar dener.
-
-### Doğrulama ve Arşivleme
-
-- Tüm alt adımlar tamamlandığında planlayıcı, son ekran görüntüsünü ve sistem çıktılarını kontrol ederek kullanıcı isteğinin **tam olarak karşılanıp karşılanmadığını** teyit eder.
-- Başarılı akış, gelecekteki taleplerde referans alınması amacıyla **Checkpointer** sistemi aracılığıyla vektör veri tabanına arşivlenir ve kullanıcıya **sonuç raporu** sunulur.
+Operasyonel sağlamlığı (*robustness*) en üst düzeyde tutmak için sistem, her işlem sonrasında **öz-yansıma (self-reflection)** mekanizmasını devreye sokar: yürütülen aksiyonun ardından güncel ekran durumu yeniden analiz edilir ve beklenen çıktıyla karşılaştırılır. Eğer bir sapma tespit edilirse — örneğin hedef pencere açılmadıysa veya yanlış bir UI elemanı tıklandıysa — ajan, LangGraph çizgesindeki döngüsel yapıyı kullanarak hatanın kök nedenini teşhis eder ve alternatif bir strateji geliştirerek süreci yeniden dener. Bu iteratif düzeltme döngüsü, tek seferlik başarıya bağımlı olmayan, kendini onaran (*self-healing*) bir yürütme modeli sunar. Tüm alt adımlar başarıyla tamamlandığında planlayıcı, son ekran görüntüsünü ve sistem çıktılarını bütünsel olarak denetleyerek kullanıcı isteğinin eksiksiz karşılandığını teyit eder. Son olarak, başarıyla sonuçlanan görev akışı **Checkpointer** mekanizması aracılığıyla vektör veri tabanına kalıcı bir deneyim kaydı olarak arşivlenir; böylece sistem, her tamamlanan görevle birlikte bilgi birikimini genişleterek gelecekteki benzer taleplerde daha hızlı, daha isabetli ve daha az hata ile yanıt verebilir hale gelir.
