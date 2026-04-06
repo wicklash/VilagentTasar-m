@@ -1,0 +1,67 @@
+{
+  "name": "vilagenttasar-m",
+  "version": "1.0.0",
+  "main": "main.js",
+  "description": "Vilagent desktop AI agent control panel",
+  "author": "Furkan",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win nsis"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wicklash/VilagentTasar-m.git"
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "desktop",
+    "ai-agent",
+    "vilagent"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wicklash/VilagentTasar-m/issues"
+  },
+  "homepage": "https://github.com/wicklash/VilagentTasar-m#readme",
+  "build": {
+    "appId": "com.vilagent.desktop",
+    "productName": "Vilagent",
+    "asar": true,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "ui/index.html",
+      "package.json"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Vilagent-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Vilagent"
+    }
+  },
+  "devDependencies": {
+    "electron": "^41.1.1",
+    "electron-builder": "^26.8.1"
+  }
+}
