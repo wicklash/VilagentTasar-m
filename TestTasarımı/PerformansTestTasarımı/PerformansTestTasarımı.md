@@ -1,0 +1,22 @@
+- Electron ve React tabanlı kullanıcı arayüzünde görev başlatma, durum güncelleme, onay penceresi gösterme ve sonuç ekranı oluşturma süreçlerine ait tepki süreleri ölçülecektir.
+- Ajan bileşenleri kapsamında; LLM yanıt süresi, plan üretim süresi, UIA ayrıştırma süresi, VLM tabanlı fallback gecikmesi, eylem icra süresi, doğrulama (verify) süresi ve hata toparlama (recover) süresi ayrı ayrı izlenecek ve analiz edilecektir.
+- Basit senaryolar kapsamında; tek pencere ve sınırlı sayıda işlem adımı içeren görevler yürütülecek, bu senaryolarda temel yürütüm süresi ve kullanıcı arayüzü tepki süreleri ölçülecektir.
+- Orta düzey senaryolar kapsamında; birden fazla planlama ve doğrulama döngüsü içeren görevler değerlendirilecek, bu süreçlerde LLM karar süresi, UIA çözümleme maliyeti ve eylem doğrulama süresi birlikte analiz edilecektir.
+- Karmaşık senaryolar kapsamında; düşük güvenli gözlem durumları, VLM fallback mekanizması, kullanıcı onay süreçleri, hata toparlama akışları, pencere geçişleri ve yeniden denemeleri içeren görevler test edilecektir.
+- Uzun süreli görevler için dayanıklılık testleri gerçekleştirilecek; bu kapsamda sistemin uzun süre stabil çalışabilme yeteneği değerlendirilecektir.
+- Uzun süreli senaryolarda; ilerleme bilgisinin kullanıcı arayüzünde tutarlı biçimde güncellenmesi, zaman aşımı durumlarında sistemin kontrollü biçimde sonlandırılması ve log bütünlüğünün korunması test edilecektir.
+- Çoklu görev senaryolarında; aynı anda birden fazla isteğin sisteme alınması, görevlerin doğru şekilde sıraya konulması, önceliklendirilmesi ve sistem kaynaklarının dengeli biçimde dağıtılması değerlendirilecektir.
+- Performans değerlendirmesi kapsamında aşağıdaki metrikler birlikte ölçülerek analiz edilecektir:
+  - Görev tamamlama süresi
+  - Adım başına ortalama gecikme
+  - Doğru görev tamamlama oranı
+  - Doğru hedefe tıklama oranı
+  - UIA ayrıştırma süresi
+  - Düşük güven durumlarında fallback tetiklenme oranı
+  - Hata sonrası toparlanma süresi
+  - Yeniden deneme sayısı
+  - Zaman aşımı oranı
+  - CPU kullanım oranı
+  - Bellek kullanım miktarı
+  - Arayüz tepki süresi
+  - Çoklu görevlerde kuyruk yönetimi başarısı
